@@ -273,6 +273,18 @@ function closeMenuFull()
     exports['qb-menu']:closeMenu()
 end
 
+RegisterCommand('livery', function(source, args)
+    local PlayerData = QBCore.Functions.GetPlayerData()
+    local ped = PlayerPedId()
+    local veh = GetVehiclePedIsIn(ped)
+    local liveryID = tonumber(args[1])
+    if PlayerData.job.name == "police" or PlayerData.job.name == "ambulance" then
+        SetVehicleLivery(veh, liveryID)
+    else
+        QBCore.Functions.Notify('You must be a Police Officer to change Livery!', 'error')
+    end
+end, false)
+
 --NUI Callbacks
 RegisterNUICallback('closeFingerprint', function(_, cb)
     SetNuiFocus(false, false)
